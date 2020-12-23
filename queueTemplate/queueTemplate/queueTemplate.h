@@ -10,9 +10,18 @@ int menu();
 class exampleClass {
 public:
 	int item;
-
-	exampleClass(int number=0) {
+	int front = 0;
+	int* itemArr;
+	exampleClass(int size, int number=0) {
 		item = number;
+		itemArr = new int[size];
+	}
+
+	int& newItem(int item) {
+		itemArr[front] = item;
+		front++;
+
+		return itemArr[front-1];
 	}
 };
 

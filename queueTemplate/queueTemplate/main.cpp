@@ -4,7 +4,7 @@
 #include "queueTemplate.h"
 
 int iTemp, element, num;
-exampleClass* tempArr;
+int* tempArr;
 using namespace std;
 exampleClass* arr;
 int main() {
@@ -16,7 +16,9 @@ int main() {
 	int queueSize;
 	cin >> queueSize;
 
-	Queue<exampleClass>* q = new Queue<exampleClass>(queueSize);
+	//Queue<exampleClass>* q = new Queue<exampleClass>(queueSize);
+	Queue<int>* q1 = new Queue<int>(queueSize);
+	exampleClass* e = new exampleClass(queueSize*2);
 	cout << "\nОчередь была успешно инициализирована\n" << endl;
 
 	int v;
@@ -30,7 +32,7 @@ int main() {
 			element;
 			cout << "Введите новый элемент: ";
 			cin >> element;
-			if (q->addElement(element)) {
+			if (q1->addElement(e->newItem(element))) {
 				cout << "\nЭлемент добавлен в конец очереди\n";
 			}
 			else
@@ -38,7 +40,7 @@ int main() {
 			break;
 
 		case 2: //удаление элемента из начала очереди
-			if (q->removeElement()) {
+			if (q1->removeElement()) {
 				cout << "\nТекущий элемент был успешно удален: " << endl;
 			}
 			else
@@ -46,8 +48,8 @@ int main() {
 			break; 
 
 		case 3:
-			iTemp = q->howMany();
-			if (q->isEmpty()) {
+			iTemp = q1->howMany();
+			if (q1->isEmpty()) {
 				cout << "\nОчередь пуста\n";
 				break;
 			}
@@ -57,34 +59,38 @@ int main() {
 				cout << "Выберите номер элемента для печати: ";
 				num;
 				cin >> num;
-				cout << "Элемент под номером " << num << " : " << (q->showElement(num)).item;
+				cout << "Элемент под номером " << num << " : " << (q1->showElement(num));
 				
 			}
 			break;
 		case 4: //печать всей очереди
-			tempArr = new exampleClass[queueSize];
-			tempArr = q->showQueue();
-			
-			for (int i = 0; i < q->howMany(); i++) {
-				cout << i+1 <<": "<<  (tempArr[i]).item << endl;
+			tempArr = new int[queueSize];
+			tempArr = q1->showQueue();
+			if (q1->isEmpty())
+			{
+				cout << "\nОчередь пуста";
+				break;
+			}
+			for (int i = 0; i < q1->howMany(); i++) {
+				cout << i+1 <<": "<<  (tempArr[i]) << endl;
 			}
 			cout << "\n";
 
 			break; 
 
 		case 5:
-			if (q->isEmpty())
+			if (q1->isEmpty())
 			{
 				cout << "\nОчередь пуста!\n";
 				break;
 			}
-			if (q->isFull())
+			if (q1->isFull())
 			{
-				cout << "\nОчередь переполнена: всего " << q->howMany() << " элементов\n";
+				cout << "\nОчередь переполнена: всего " << q1->howMany() << " элементов\n";
 				break;
 			}
 
-			cout << "\nВсего в очереди " << q->howMany() << " элементов\n";
+			cout << "\nВсего в очереди " << q1->howMany() << " элементов\n";
 			break;
 
 		case 0:
